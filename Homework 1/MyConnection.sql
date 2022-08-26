@@ -1,7 +1,3 @@
-describe hr.regions;
+SELECT * FROM job_history;
 
-desc hr.countries;
-
-desc jobs;
-
-desc locations;
+SELECT DISTINCT job_id,department_Id from job_history;

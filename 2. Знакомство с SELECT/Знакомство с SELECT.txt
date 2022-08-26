@@ -1,0 +1,34 @@
+Команда DISTINCT - 
+
+SELECT DISTINCT column(s) FROM table; (пример: SELECT DISTINCT job_id FROM job_history;) 
+команда читается так : "Извлеки уникальные значения  из столбца  job_id, которые находятся в таблице job_history") 
+
+команду DISTINCT можно применить к комбинации значений из разных столбцов ( пример, select distinct job_id, department_id from job_history;)
+если комбинация значений уникальна, select ее отобразит.
+
+SELECT (3 фундаментальные концепции) :
+
+1.Projection - выбор столбцов из таблицы (выборка)
+2.Selection - выбор строк из таблицы 
+3.Joining - объединение таблиц.
+
+
+SELECT statement 
+
+Basic syntax
+SELECT * FROM table; (выбери все столбцы из таблицы <table>) 
+можно вместо run нажать ctrl+enter , запустится SELECT 
+SELECT column(s) FROM table; (выбери определенный(-ые)столбцы из таблицы)
+если столбец нужен не один, то перечисляются через запятую. (это называется "SELECT LIST")
+
+если нужно сохранить запросы, то можно нажать ctrl+s , сохранить, где нужно, потом открыть, когда потребуется и работать.
+
+
+Expressions  in select list  
+
+SELECT column(s),expressions FROM table; 
+пример1: SELECT first_name, salary, salary*1,5 from employees;
+salary*1,5 является expression (выражение).
+пример2: SELECT start_date,end_date, (end_date-start date)+1 from job_history;
+(end_date-start date)+1 является выражением.
+
