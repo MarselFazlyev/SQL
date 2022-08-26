@@ -32,3 +32,29 @@ salary*1,5 является expression (выражение).
 пример2: SELECT start_date,end_date, (end_date-start date)+1 from job_history;
 (end_date-start date)+1 является выражением.
 
+Конкатенация "||" склеивает соответственно значения двух указанных столбцов.
+пример1 : Select first_name || last_name from employees;
+пример2 : SELECT 'My name is '|| first_name || ' and my lastname is '|| last_name from employees;
+
+ALIAS (перевод с англ.-псевдоним)
+SELECT column(s) alias , expression(s) alias FROM table;
+Alias - это альтернативное имя для столбца или целого выражения.
+Если нужно поменять имя столбца, можно 
+    1) поставить алиас (новое название) после старого названия столбца, (пример : SELECT 'My name is '|| first_name || ' and my lastname is '|| last_name name from employees; )
+       name после last_name  - alias
+    2) добавить для читабельности ключевое слово 'as' перед алиасом, (пример : SELECT 'My name is '|| first_name || ' and my lastname is '|| last_name as name from employees; )
+
+    3)Если нужно,чтобы алиас был с пробелами, его надо заключить в двойные кавычки, лиюо все слова с нижним подчеркиванием (пример: select start_date, end_date, (end_date-start_date)+1 as "count of days" from job_history;
+
+
+Таблица DUAL - макет
+если нам надо что то протестировать то используем from dual
+пример1: select 'my age by seconds is '|| 37*365*24*60*60|| ' seconds' from dual; 
+пример2: select 7*8 from dual;
+пример 3: при вводе текста с одинарными кавчками возникнет проблема, компилятор распознает одинарные кавычки как служебное слово. Поэтому, в таких случаях
+1) используем дважды одинарные кавычки
+         select 'It''s my life' from dual;
+2) используем делиметр Quote(q) operator
+q'delimeter наш текст с кавычками delimeter'
+         select q'<It's my life>' from dual;
+Делиметер может быть любым, но приняты кавычки.
