@@ -14,5 +14,5 @@ select '"Peter''s dog is very clever"'from dual;
 
 select q'<"Peter's dog is very clever">' from dual;
 
-select 100*365.25*24*60*60 from dual;
+select 100*365.25*24*60 from dual;
 

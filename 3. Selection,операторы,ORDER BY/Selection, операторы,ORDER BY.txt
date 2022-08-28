@@ -1,0 +1,10 @@
+
+Концепция SELECTION - выборка определенных строк
+Ограничение в условии в выводе нвзывается RESTRICTION
+
+Шаблон SELECT statement вместе с концепцией SELECTION
+
+SELECT*|{DISTINCT column(s) alias, expression(s) alias)
+FROM table
+WHERE condition(s);
+(читается так : "Выведи все столбцы или те, которые я укажу, в таблице, где будут удовлетворятся мои определенные условия.
