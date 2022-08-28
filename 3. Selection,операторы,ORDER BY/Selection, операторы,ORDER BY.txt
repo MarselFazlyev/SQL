@@ -2,9 +2,33 @@
 Концепция SELECTION - выборка определенных строк
 Ограничение в условии в выводе нвзывается RESTRICTION
 
+
 Шаблон SELECT statement вместе с концепцией SELECTION
 
 SELECT*|{DISTINCT column(s) alias, expression(s) alias)
 FROM table
 WHERE condition(s);
 (читается так : "Выведи все столбцы или те, которые я укажу, в таблице, где будут удовлетворятся мои определенные условия.
+
+Рассматриваются примеры  оператора сравнения '='
+пример1: select * from departments 
+         where location_id = 1700;
+пример2: select * from job_history 
+         where job_id = 'ST_CLERK'; (!!! Если регистр букв в условии и значении разный, то результат выведен не будет, так как это разный результат)
+пример3: select * from employees 
+         where 'Dr '||first_name||' '||last_name = 'Dr David Austin';
+
+Рассматриваются примеры  операторов неравенств '>,<,!=,'
+пример1: select first_name, last_name , salary from employees 
+         where salary >10000;
+пример2: select * from departments 
+         where location_id !=1700;
+
+При сравнении текстовых значений  в запросе SQL они конвертируются в соответствующие числовые представления
+(Можно представить словарь - если слово в нем стоит раньше, то оно меньше, чем слово, с которым сравнивалось первое слово)
+пример1: select * from employees 
+        where first_name>'Steven'
+
+Пример с датой
+пример1: select * from job_history
+         where start_date < '01.01.97';
