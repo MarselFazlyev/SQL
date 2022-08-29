@@ -1,11 +1,11 @@
 
-Концепция SELECTION - выборка определенных строк
+ ## SELECTION ## - выборка определенных строк
 Ограничение в условии в выводе нвзывается RESTRICTION
 
 
-Шаблон SELECT statement вместе с концепцией SELECTION
+Шаблон **SELECT** statement вместе с концепцией **SELECTION**
 
-SELECT*|{DISTINCT column(s) alias, expression(s) alias)
+SELECT * |{DISTINCT column(s) alias, expression(s) alias)
 FROM table
 WHERE condition(s);
 (читается так : "Выведи все столбцы или те, которые я укажу, в таблице, где будут удовлетворятся мои определенные условия.
@@ -32,3 +32,33 @@ WHERE condition(s);
 Пример с датой
 пример1: select * from job_history
          where start_date < '01.01.97';
+
+оператор сравнения  BETWEEN
+пример1 : select first_name, last_name, salary from employees
+        where salary between 4000 and 10000; (границы включены в поиск)
+пример2: select * from job_history
+         where start_date between '01.01.97' and '01.01.99';
+пример3: select * from employees 
+         where first_name between 'A' and 'C';
+
+оператор IN (вывести все/выбранное из таблицы, в которой поле равно ...)
+
+пример1: select * from locations 
+         where country_id in 'US';
+пример2: select * from departments
+         where location_id in 1700;
+пример3: select first_name, last_name from employees 
+         where department_id in (90,100,80);
+
+перечисление требуемых значений еще можно прописать через оператор **OR**
+пример4: select first_name, last_name from employees 
+         where department_id = 90 or department_id = 100 or department_id = 80;
+
+если сравниваем с null, то правильный синтаксис is null;
+пример: select * from  employees
+        where commission_pct is null; 
+
+оператор сравнения LIKE
+
+         
+
