@@ -58,12 +58,59 @@ WHERE condition(s);
 пример: select * from  employees
         where commission_pct is null; 
 
-оператор сравнения LIKE
+ оператор сравнения **LIKE**
 
 работает только с текстовым типом нужен для сравнения текстов,слов,букв.
 Укомплектован двумя специальным символами : символ '%' и символ '_'
 '%' может быть заменен на ноль или большее любое количество символов.
 '_' может быть заменен только на один любой символ
+пример: select * from employees where first_name like 'S%'; (найдет всех,чье имя начинается на 'S')
+
+логические операторы
+
+**TRUE**
+все выражение принимает значение TRUE тогда и только тогда, когда все условия, объединенные AND, по отдельности тоже возвращают TRUE.
+пример:SELECT * FROM employees where first_name like 'D%' AND SALARY>10000; (ВЫВЕСТИ ВСЕХ EMPLOYEES,где и имя начинается на 'D',и зарплата >10000)
+**OR**
+все выражение принимает значение TRUE тогда и только тогда, когда хотя бы одно из условий, объединенные **OR**, по отдельности тоже возвращают TRUE.
+пример: SELECT * FROM employees where first_name like 'D%' OR SALARY>10000;
+**NOT**
+оператор **NOT**меняет значение условия на противоположное.
+пример1:SELECT * FROM employees where NOT (MANAGER_ID<120);
+пример2:SELECT * FROM EMPLOYEES WHERE  LAST_NAME NOT  LIKE 'K%';
+пример3:SELECT * FROM EMPLOYEES WHERE JOB_ID NOT IN ('ST_MAN','ST_CLERK');
+пример4:SELECT * FROM EMPLOYEES WHERE SALARY NOT BETWEEN 5000 AND 10000;
+пример5:SELECT * FROM EMPLOYEES WHERE commission_pct  is not  null;
+пример6:select * from employees where commission_pct is not null and last_name not like '%en';
+
+Приоритетность операторов (не стал расписывать, все интуитивно понятно)
+
+
+**ORDER BY** (СОРТИРОВКА)
+Не влияет на количество итоговых строк, вляет только на расположение строк.
+пример1: SELECT FIRST_NAME,SALARY FROM EMPLOYEES ORDER BY SALARY;
+пример2:  SELECT FIRST_NAME,SALARY,HIRE_DATE FROM EMPLOYEES ORDER BY HIRE_DATE;
+Чтобы сделать сортировку по возрастанию, нужно использовать ASC(Ascending)
+пример1: select first_name,last_name from employees where salary <10000 order by first_name asc;
+пример2: select first_name,last_name from employees where salary <10000 order by first_name desc;
+пример3: select last_name,salary,hire_date,hire_date+salary*2 expr
+from employees
+where employee_id>120
+order by expr;
+
+если мы хотим переместить в сортировке все null вверх в списке или вниз,то прописать **nulls first** или **nulls last**
+пример4: select * from employees order by commission_pct desc nulls first ;
+
+можно сортировать по номеру столбца из select(НЕ ИЗ ТАБЛИЦЫ!!!)
+пример 5:select first_name,salary from employees order by 1;
+пример 6:select first_name,salary from employees order by 2;
+ если написано так : select * from employees order by 1;
+то выберется 1 столбец из таблицы и по нему отсортируется 
+
+пример сортировки по нескольким параметрам
+select job_id,first_name,last_name,salary,hire_date
+from employees
+order by job_id desc,last_name, 4 desc;
 
          
 
