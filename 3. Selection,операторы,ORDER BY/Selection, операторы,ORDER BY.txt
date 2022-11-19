@@ -66,6 +66,9 @@ WHERE condition(s);
 '_' может быть заменен только на один любой символ
 пример: select * from employees where first_name like 'S%'; (найдет всех,чье имя начинается на 'S')
 
+Если нужно экранировать символ, то используется оператор **ESCAPE**.
+пример:select * from employees where job_id like 'AD\_%' escape '\';
+
 логические операторы
 
 **TRUE**
