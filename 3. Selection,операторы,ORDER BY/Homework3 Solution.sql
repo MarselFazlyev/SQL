@@ -14,7 +14,7 @@ select * from employees where first_name like '_a%a';
 select * from employees 
 where  commission_pct is not null
 and department_id in (50,80)
-order by email asc;
+order by 4;
 
 select * from employees where first_name like '%n%n%';
 
