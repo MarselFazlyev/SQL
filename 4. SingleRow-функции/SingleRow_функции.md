@@ -17,6 +17,8 @@
 		- **CONCAT(s,s)** - функция конкатенвции строк, применяют на практике ||, это удобнее
 		- **SYSDATE** -возвращает текущее число
 		- **LENGTH(s)**- функция вычисояет длину строки
+		- **LPAD,RPAD(s,n,p)**- s-строка,n-конечная длина текста, p-текст для заполнения.\
+			добавляет символы слева или справа от текста.
 
 
 ```
@@ -65,6 +67,7 @@ select first_name,LENGTH(first_name) dlina from employees;
 select LENGTH ('VASYA PUPKIN') length from dual;
 select LENGTH ('My name is '|| first_name || ' and surname is '|| last_name) from employees;
 select LENGTH ('My name is '|| first_name || ' and surname is '|| last_name)length from employees;
-
+select country_name from countries 
+where LENGTH(country_name)>5;
 ```
 
