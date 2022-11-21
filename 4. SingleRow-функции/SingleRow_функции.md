@@ -36,7 +36,7 @@ select first_name from employees
 where UPPER(first_name) like '%T%';
 select UPPER ('Privet kak dela? 32') from dual;
 ```
-   - **INITCAP(s)- делает первую букву заглавной, остальные- прописными.
+   - **INITCAP(s)**- делает первую букву заглавной, остальные- прописными.
 ```
 Примеры INITCAP
 select INITCAP('PRIVET KAK DELA?') from dual;
@@ -60,8 +60,8 @@ select CONCAT ('privet ' , CONCAT('MOI',' DRUG')) from dual;
 select CONCAT ('today is ',SYSDATE) from dual;
 
 ```
-- **LENGTH(s)**- функция вычисояет длину строки
-		```
+- **LENGTH(s)**- функция вычисляет длину строки
+```
 Пример LENGTH
 select first_name,LENGTH(first_name) dlina from employees;
 select LENGTH ('VASYA PUPKIN') length from dual;
@@ -87,7 +87,7 @@ select RPAD(first_name,15,' ')||LPAD(salary,8,' ')from employees;
     если нужно удалить с обеих сторон имеенно пробелы, то можно просто в аргументах оставить текст\
     функция TRIM удаляет только один символ.
      
-    ```	
+```	
 Пример TRIM
 select TRIM (trailing 'q' from 'Marsel') from dual;
 select TRIM (leading '*' from '***Marsel***')from dual;
@@ -97,17 +97,18 @@ select TRIM(' ' from '     Marsel  ')from dual;
 select TRIM(' ' from '     Marsel   Marsel  ')from dual; //пробелы в середине текста затронуты не будут
 select TRIM ('    Marsel           ') from dual;
 
-     ```
+```
 
 - **INSTR**(s,search string,start position,Nth occurence) - s-строка,текст, search string-искомый текст;\
     возвращает позицию нашего текста в искомом тексте,начинает со start position, и выявляет n-ое появление этого элемента
 	start position-позиция для начала работы;Nth occurence - N-ое появление; number of characters- количество символов;\
 	search item - искомый элемент; replacement item - заменяющий элемент.
-	```
+```
 	пример INSTR
 	SELECT INSTR('Marsikus perpetum_mobile','i',2,2)from dual;
 	SELECT INSTR('Marsikus perpetum_mobile','mobile')from dual;
-	```
+```
+
 - **SUBSTRING**(s,start position,number of characters) - изымает и возвращает отрывок из текста
 	если start position больше длины нашего текста, то вернется null
 	если в количестве запрашиваемых симовлов поставить "-",то отсчет старта будет с конца
