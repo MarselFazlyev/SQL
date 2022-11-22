@@ -112,7 +112,7 @@ select TRIM ('    Marsel           ') from dual;
 - **SUBSTRING**(s,start position,number of characters) - изымает и возвращает отрывок из текста
 	если start position больше длины нашего текста, то вернется null
 	если в количестве запрашиваемых симовлов поставить "-",то отсчет старта будет с конца
-	```
+```
 	пример SUBSTR
 select email, SUBSTR(email,4) from employees;
 select email, SUBSTR(email,4,2) from employees;
@@ -122,7 +122,7 @@ select hire_date,SUBSTR(hire_date,-4) from employees;
 select hire_date,SUBSTR(hire_date,-4,2) from employees;
 
 
-	```
+```
 - **Replace**(s,search item,replacement item) -	заменяет item на replacement item
 	если replacement item не указать,то item по всему тексту удалится.
 ```
@@ -161,5 +161,29 @@ select * from employees where MOD(employee_id,2)=0;
 
 ### Date functions - функции для работы с датами
 
+- **SYSDATE** - возвращает время на database-сервере.Если database на нашем компе, то возвращается время на нашем компе.
+```
+пример SYSDATE 
+select TO_CHAR(sysdate, 'DD-MM-RR hh24:mi:ss') from dual; // время на сервере
+select sysdate - hire_date from employees;
+select sysdate+5 from employees;
+```
+- **MONTHS_BETWEEN**(start_date,end_date) - возвращает количество месяцев между датами
+```
+пример MONTHS_BETWEEN
+select employee_id,MONTHS_BETWEEN(end_date,start_date)from job_history;
+select MONTHS_BETWEEN('22.11.22','20.01.22')FROM DUAL;
 
-
+```
+- **ADD_MONTHS(date,number_of_months)** - добавляет месяцы к дате
+```
+пример ADD_MONTHS
+select end_date, add_months(end_date,6) from job_history;
+```
+- **NEXT_DAY**(date,day_of_the_week) - возвращает следуюший соответсвующий одному из дней недели день от введенной даты\
+	ВНИМАНИЕ,если отсчет вренени по американской системе, то у них 1- не понедельник, а воскресенье и т.д.!!!
+```
+пример NEXT_DAY
+select NEXT_DAY(sysdate,2) from dual; // вернет следующий вторник от текущей даты.
+```	
+ 
