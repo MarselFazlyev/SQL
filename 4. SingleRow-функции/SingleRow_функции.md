@@ -1,5 +1,5 @@
 ## Single-Row функции
-Функции в SQL бывают 2 видов: **single-row**,**multiply-row**
+Функции в SQL бывают 2 видов: **single-row**,**multiple-row**
 - **single-row**
 	1. Character
 	2. Numeric
@@ -48,7 +48,7 @@ select INITCAP ('PRivet,Kak Ti?Chto_xoroshego?Vse po staromu!Ti kak?') from dual
 ### **Character manipulation functions** 
     
 		- **CONCAT(s,s)** - функция конкатенвции строк, применяют на практике ||, это удобнее
-		- **SYSDATE** -возвращает текущее число
+		- **SYSDATE** -возвращает текущую дату, также можно вытянуть текущее время
 ```
 Примеры CONCAT
 select CONCAT ('Privet','Drug') from dual;
@@ -102,7 +102,7 @@ select TRIM ('    Marsel           ') from dual;
 - **INSTR**(s,search string,start position,Nth occurence) - s-строка,текст, search string-искомый текст;\
     возвращает позицию нашего текста в искомом тексте,начинает со start position, и выявляет n-ое появление этого элемента
 	start position-позиция для начала работы;Nth occurence - N-ое появление; number of characters- количество символов;\
-	search item - искомый элемент; replacement item - заменяющий элемент.
+	
 ```
 	пример INSTR
 	SELECT INSTR('Marsikus perpetum_mobile','i',2,2)from dual;
@@ -112,6 +112,7 @@ select TRIM ('    Marsel           ') from dual;
 - **SUBSTRING**(s,start position,number of characters) - изымает и возвращает отрывок из текста
 	если start position больше длины нашего текста, то вернется null
 	если в количестве запрашиваемых симовлов поставить "-",то отсчет старта будет с конца
+	number of characters- количество символов;\
 ```
 	пример SUBSTR
 select email, SUBSTR(email,4) from employees;
@@ -125,6 +126,7 @@ select hire_date,SUBSTR(hire_date,-4,2) from employees;
 ```
 - **Replace**(s,search item,replacement item) -	заменяет item на replacement item
 	если replacement item не указать,то item по всему тексту удалится.
+	search item - искомый элемент; replacement item - заменяющий элемент.
 ```
 	пример Replace
 select REPLACE('Privet, kak dela?','e','U') FROM DUAL;
@@ -185,5 +187,35 @@ select end_date, add_months(end_date,6) from job_history;
 ```
 пример NEXT_DAY
 select NEXT_DAY(sysdate,2) from dual; // вернет следующий вторник от текущей даты.
+select NEXT_DAY(sysdate,'четверг') from dual;
+select NEXT_DAY(sysdate,'пт') from dual;
+select NEXT_DAY('31.12.22',1)-7 from dual; // последний понедельник года
 ```	
- 
+- **LAST_DAY**(date) - возвращает последню дату в введенном месяце. 
+```
+пример LAST_DAY
+select LAST_DAY(SYSDATE) FROM DUAL;
+select LAST_DAY('26.12.89') FROM DUAL;
+```	
+- **ROUND(для даты)** (date,date precision format)** - округляет даты
+    date precision format-точность округления
+	в зависимости от точности, округление может быть:
+	* Век - CC
+	* год - YYYY
+	* четверть - Q 
+	* месяц - MM
+	* неделя - W
+	* день - DD
+	* час - HH
+	* минута - MI
+```
+пример ROUND
+select ROUND(hire_date, 'CC') FROM employees;
+```	
+- **TRUNC(для даты)**(date,date precision format) - обрубает с заданной точностью, не округляя
+```
+пример ROUND
+select ROUND(hire_date, 'CC') FROM employees;
+select TRUNC(hire_date,'yyyy')from employees;
+select TRUNC(hire_date,'Q')from employees;
+```	
