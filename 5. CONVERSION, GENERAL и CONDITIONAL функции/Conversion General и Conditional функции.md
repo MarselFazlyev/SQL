@@ -130,4 +130,66 @@ select to_number('<4216>','9999999.99PR') from dual;
 select to_char('3.17','9999.9') from dual;
 select to_number('3.17','99999.9')from dual; //выкинет ошибку, количество знаков после плавающей точки меньше, чем в тексте 
 select to_number('3.17','99999.99')from dual; //сработает корректно
+```
+### Nested functions (вложенные функции)
+select length(SYSDATE)FROM DUAL;
+```
+select length(SYSDATE)FROM DUAL; //вложенность равна 2
+select length(upper(sysdate))from dual; //вложенность равна 3
+select first_name,length(first_name),round(123.1233456578689579,length(first_name))from employees;
 
+select first_name,employee_id,length(employee_id),
+substr(first_name,length(employee_id)),
+length(substr(first_name,length(employee_id)))
+from employees;
+
+select to_date('28-04-21','dd-mm-rr'),
+to_char(to_date('28-04-21','dd-mm-rr'),'day'),
+length(to_char(to_date('28-04-21','dd-mm-rr'),'day'))
+from dual;
+
+select first_name,last_name,phone_number,to_number(substr(phone_number,instr(phone_number,'.')+1),'999.9999')*10000 some_alias from employees where employee_id<145;
+```
+### General functions (функции, упрощающие работу со значениями null)
+
+**NVL**(value,ifNull) - функция,проверяющая значение на null. Если его первое значение не Null, то возвращается первое значение, если null,то возвращается второе значение.
+Типы обоих значений должны быть одинаковыми!!
+```
+select first_name, NVL(commission_pct,0)from employees;
+
+select first_name,NVL(SUBSTR(first_name,6),'name is too short') from employees; // если в имени больше 6 символов, то вернется текст, иначе вернется null и в итоге функция NVL вернет второе значение - 'name is too short'
+
+select first_name,commission_pct,NVL(salary*commission_pct,400) bonus from employees;
+```
+**NVL2**(value,ifNotNull,ifNull)- всегда определяется по первому параметру(но никога его не возвращает):\
+- если первый параметр не null,то возвращается второй параметр
+- если первый парметр null, то возвращается третий параметр
+
+```
+select NVL2(17,19,18) from dual;
+select NVL2(null,19,18) from dual; 
+select first_name,commission_pct, NVL2(commission_pct,commission_pct,0)from employees;
+```
+
+**NULLIF**(value1,value2) - 
+- возвращает null, если первый и второй параметр равны между собой
+- возвращает первый параметр, если параметр не равен второму параметру
+- второй параметр никогда не возвращает
+
+```
+select NULLIF(18,18)from dual;
+select NULLIF(17,18)from dual;
+select NULLIF(14,1||4) from dual; // выкинет ошибку - разные типы
+select NULLIF ('15',15)from dual; // выкинет ошибку - разные типы
+select nullif ('18-SEP-19','18?SEP/19') from dual;
+select nullif (to_date('18-SEP-19'),to_date('18?SEP/19'))from dual;
+```
+**COALESCE**(value1,value2,valueN)- возвращает первое значение, не равное null
+coalesce c 2 параметрами идентичен функции **NVL(value1,ifNull)**
+```
+select coalesce(null,12,null)from dual;
+select coalesce(null,null,'ok',null)from dual;
+select coalesce(null,null,null,null)from dual;
+```
+
+### Conditional functions
