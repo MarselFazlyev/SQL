@@ -1,6 +1,6 @@
-## Conversion,General и Conditonal функции
+## Conversion ,General и Conditonal функции
 
-### Conversion functions
+### Conversion functions (функции ковертации)
 
 - **TO_CHAR(number to char)** *(number,format mask,nls_parameters)* - конвертирует число или дату в текст.\
 	**nls_parameters**(national language parameters) - настройки парметров языка,могут различаться форматы дат и прочее..\
@@ -118,5 +118,16 @@ select to_char(to_date('09/12?22-21$01/11','hh24/mm?yy-dd$mi/ss'),'dd-mon-yy hh2
 ```
 
 ### To_number
-
+**TO_NUMBER(text,format mask,nls_parameters) - N**
+Конвертация текста в число, используя функцию **TO_NUMBER**,означет взять текст и объяснить в своем формате, где и как содержится информация об элементаъ числа в вашем тексте.
+```
+select to_number('#234214.34','#999999999999.99')from dual;
+select to_number('<4216>','9999999.99PR') from dual;
+```
+Есть один момент: в отличие от функции **TO_CHAR**,функция **TO_NUMBER** не может округлить текст и выдать результат в нужном формате.
+Пример:
+```
+select to_char('3.17','9999.9') from dual;
+select to_number('3.17','99999.9')from dual; //выкинет ошибку, количество знаков после плавающей точки меньше, чем в тексте 
+select to_number('3.17','99999.99')from dual; //сработает корректно
 
