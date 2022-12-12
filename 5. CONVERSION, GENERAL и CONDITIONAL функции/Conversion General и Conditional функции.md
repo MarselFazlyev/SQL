@@ -192,4 +192,82 @@ select coalesce(null,null,'ok',null)from dual;
 select coalesce(null,null,null,null)from dual;
 ```
 
-### Conditional functions
+### Conditional functions (функции условия)
+**DECODE** (expr,comp1,ifTrue,comp2,ifTrue2,compN,ifTrueN,ifFalse)- сравнивает выажение с другими выражениями
+
+**!!! DECODE Используется только для СУБД ORACLE**
+if expr=comp1->ifTrue 
+else if expr=comp2->ifTrue2
+...else if expr= compN->ifTrueN
+else -> ifFalse
+```
+select DECODE(3*4,13,'DVENDADCAT',20,'DVADCAT',12,'DVENADCAT')FROM DUAL;
+select DECODE (null,5,'ok,null,23') from dual; //сравнение двух null даст равенство, вернется 23.
+select DECODE (2+2*2,5,'FIVE',12/2,'SIX',6,'SIXXXX')from dual; //если находит совпадение, проверка дальше прекращается
+
+select first_name,commission_pct,employee_id,
+DECODE(commission_pct,null,'net commissii',0.1,'malo kommissii',0,4,'mnogo kommissii','srednjaja kommissia') commission_comment 
+from employees where employee_id between 140 and 180;
+```
+
+**CASE** - бывает двух типов:
+- **SIMPLE CASE**
+- **SEARCHED CASE**
+
+**SIMPLE CASE**- (expr,WHEN comp1,THEN ifTrue1, WHEN comp2 THEN ifTrue2, WHEN compN THEN compN, ELSE ifFalse END)
+аналог **switch** в Java, обязательно заканчивается оператором **END**
+```
+SELECT CASE(3*4)
+WHEN 11
+THEN 'eleven'
+WHEN 12
+THEN 'twelve'
+WHEN 24/2 
+THEN 'twelve2'
+else 'drugoe'
+END from dual;
+
+select first_name,case length(first_name)
+when 4 then 'ochen korotkoe imja'
+when 5 then ' korotkoe imja'
+when 6 then 'srednei dliny  imja'
+when 7 then 'dlinnoe imja'
+when 8 then 'ochen dlinnoe imja'
+else 'dlina imeni neizvestna'
+END
+from employees;
+```
+
+**SEARCHED CASE** - 
+ WHEN comp1 THEN ifTrue1\
+ WHEN comp2 THEN ifTrue2\
+ WHEN compN THEN compN\
+ ELSE ifFalse\ 
+ END\
+здесь нет выражения,которое по очереди сравнивается с разными case, здесь поочередно проверяется истинность условий.\
+ аналог следующей конструкции В JAVA\
+if(expr == true) return someexpr\
+else if (expr3 == true) return someexpr2\
+else if (exprN == true) return someExprN\
+else return exprIfFalse;
+```
+select first_name,case 
+when length(first_name)=4 then 'ochen korotkoe imja'
+when length(first_name)=5 then 'korotkoe imja'
+when length(first_name)=6 then 'srednei dliny  imja'
+when length(first_name)=7 then 'dlinnoe imja'
+when length(first_name)=8 then 'ochen dlinnoe imja'
+else 'dlina imeni neizvestna'
+END
+from employees;
+
+select first_name,commission_pct,salary,case
+when length(first_name)>9 THEN 'Srabotalo pervoe uslovie'
+when commission_pct is not null THEN 'Srabotalo  vtoroe  uslovie'
+when salary*10>10000 THEN 'Srabotalo  tretje uslovie'
+else 'Nichego ne sraslos'
+END case_statement
+from employees;
+
+```
+
