@@ -268,6 +268,5 @@ when salary*10>10000 THEN 'Srabotalo  tretje uslovie'
 else 'Nichego ne sraslos'
 END case_statement
 from employees;
-
 ```
 

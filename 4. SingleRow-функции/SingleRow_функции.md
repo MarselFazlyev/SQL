@@ -1,6 +1,9 @@
 ## Single-Row функции
-Функции в SQL бывают 2 видов: **single-row**,**multiple-row**
-- **single-row**
+Функции в SQL бывают 2 видов: 
+**single-row**- на каждый input есть output ,
+**multiple-row - на много input один output**
+
+ **single-row**
 	1. Character
 	2. Numeric
 	3. Date
