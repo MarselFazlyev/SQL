@@ -3,6 +3,8 @@
 **single-row**- на каждый input есть output ,
 **multiple-row - на много input один output**
 
+могут быть вложены сколько угодно раз
+
  **single-row**
 	1. Character
 	2. Numeric
