@@ -130,7 +130,7 @@ from employees e JOIN jobs j ON (e.job_id = j.job_id AND salary between min_sala
 таблица разбивается на две мнимые таблицы и делается **JOIN ON**
 ```
 select emp1.employee_id,emp1.first_name,
-emp2.manager_Id,emp2.first_name manager_name
+emp2.manager_id,emp2.first_name manager_name
 from employees emp1 JOIN employees emp2 ON (emp1.manager_id=emp2.employee_id);
 ```
 
@@ -140,7 +140,8 @@ from employees emp1 JOIN employees emp2 ON (emp1.manager_id=emp2.employee_id);
  - **RIGHT OUTER JOIN**(выводится информация по Inner Join и потом прибавляется информация по всем строкам из правой  таблицы,для которых условие объединения   не было удовлетворено.)
  - **FULL OUTER JOIN**(выводится информация по Inner Join и потом прибавляется информация по всем строкам из левой таблицы,для которых условие объединения   не было удовлетворено,прибавляется информация по всем строкам из правой  таблицы,для которых условие объединения не было удовлетворено)
 
- ### LEFT OUTER JOIN
+ ### LEFT OUTER JOIN 
+ выводится информация по Inner Join и потом прибавляется информация по всем строкам из левой таблицы,для которых условие объединения   не было удовлетворено. 
 
  SELECT column(s) FROM 
  table_1 LEFT OUTER JOIN table_2
@@ -160,3 +161,69 @@ from departments d LEFT OUTER JOIN employees e on (d.department_id=e.department_
 where first_name is null ;
   ```
 
+### RIGHT OUTER JOIN
+  выводится информация по Inner Join и потом прибавляется информация по всем строкам из правой  таблицы,для которых условие объединения   не было удовлетворено.
+
+ SELECT column(s) FROM 
+ table_1 RIGHT OUTER JOIN table_2
+ ON (column_1=column_2);
+
+```
+select department_name,d.department_id,first_name 
+from departments d RIGHT OUTER JOIN employees e on (d.department_id=e.department_id);
+
+select country_name,city,street_address 
+from locations l RIGHT OUTER JOIN countries c on (l.country_id= c.country_id);
+  ```
+
+### FULL OUTER JOIN 
+
+выводится информация по Inner Join и потом прибавляется информация по всем строкам из левой таблицы,для которых условие объединения   не было удовлетворено,прибавляется информация по всем строкам из правой  таблицы,для которых условие объединения не было удовлетворено
+```
+select NVL(first_name,'no employee'),NVL(last_name,'no_employee'),NVL(department_name,'no department'),NVL(salary,0)
+from employees e FULL OUTER JOIN departments d on (e.department_id=d.department_id);
+```
+
+### CROSS JOIN (второе название Cartesian product - Декартово произведение)
+SELECT column(s)
+from table_1
+CROSS JOIN
+table_2;
+
+```
+select * from countries CROSS JOIN regions order by country_name;
+```
+здесь нет никаких столбцов или условия для объединения, просто идет перемножение каждая строка первой таблицы записывается вместе с каждой строкой второй таблицы.
+Также CROSS JOIN может произойти, если при объединении таблиц нет общих столбцов для объединения, и не указать столбцы самим
+```
+select * from countries NATURAL JOIN jobs;
+```
+
+### ORACLE JOIN SYNTAX
+Cвой синтаксис компании Oracle
+
+**Oracle Inner join** - 
+select column(s) from table_1 t1,table2 t2
+where t1.column1= t2.column2;
+```
+select first_name,last_name,e.department_id,department_name from employees e,departments d
+where e.department_id= d.department_Id;
+```
+**Oracle Right outer join** - 
+```
+select first_name,last_name,e.department_id,department_name from employees e,departments d
+where e.department_id(+)= d.department_Id;
+```
+**Oracle Left outer join** - 
+```
+select first_name,last_name,e.department_id,department_name from employees e,departments d
+where e.department_id= d.department_Id(+);
+```
+
+**Full outer join** в синтаксисе Oracle не существует
+
+**Сross join** 
+SELECT column(s) from table1 t1,table2 t2;
+```	
+select * from countries,regions;
+```
