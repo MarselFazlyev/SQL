@@ -57,7 +57,15 @@ group by job_id);
 ```
 
 ### MULTIPLE ROW subqueries
-вместо неравенств можно использовать ключевые слова **IN**,**ANY**,**ALL**
+вместо неравенств можно использовать ключевые слова **IN**,**NOT IN**,**ANY**,**ALL**
+если подзапрос может вернуть null, то ключевое слово **NOT IN** не сработает!!!
+нужно использовать друшую конструкцию!
+
+**NOT IN**
+```
+select * from departments d where department_id  not in (select department_id from employees where department_id is not null); 
+```
+
 ```
 select * from employees
 where job_id in (select job_id from jobs where min_salary>8000);
